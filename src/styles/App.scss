@@ -1,0 +1,65 @@
+$white: #fff;
+$light: #fafafa;
+$dark: #363636;
+$black: #000;
+$green: #00FC87;
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+// Searchbox
+.searchbox {
+  width: 500px;
+  position: relative;
+}
+
+.searchbox input {
+  width: 100%;
+  padding: 5px 10px;
+  appearance: none;
+  background-color: $dark;
+  box-shadow: 1px 1px 1px 1px $dark;
+  border: none;
+  font-size: 18px;
+}
+
+.searchbox-magnifier {
+  width: 24px;
+  height: 24px;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+// Suggestion
+.suggestion, .searchbox-magnifier {
+  position: absolute;
+}
+
+.suggestion {
+  background-color: $dark;
+  width: 100%;
+  transform: translateY(0);
+  padding: 5px 10px;
+  box-shadow: 1px 1px 1px 1px $dark;
+}
+
+.suggestion-item {
+  color: $white;
+  padding: 5px 0;
+  
+  &.is-active {
+    background-color: $green;
+  }
+
+  &:nth-of-type(2) {
+    border-top: 1px solid tint($dark, 25%);
+    border-bottom: 1px solid tint($dark, 25%);
+  }
+}
