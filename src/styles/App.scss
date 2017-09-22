@@ -23,6 +23,7 @@ $green: #00FC87;
   padding: 5px 10px;
   appearance: none;
   background-color: $dark;
+  color: $white;
   box-shadow: 1px 1px 1px 1px $dark;
   border: none;
   font-size: 18px;
@@ -46,16 +47,30 @@ $green: #00FC87;
   background-color: $dark;
   width: 100%;
   transform: translateY(0);
-  padding: 5px 10px;
   box-shadow: 1px 1px 1px 1px $dark;
 }
 
 .suggestion-item {
   color: $white;
-  padding: 5px 0;
+  cursor: pointer;
+  padding: 0 10px;
+  transition: all 0.3s ease-in-out;
   
-  &.is-active {
-    background-color: $green;
+  small {
+    color: $green;
+  }
+
+  &.is-active, 
+  &:hover {
+    background-color: tint($dark, 15%);
+  }
+
+  &:first-child {
+    padding-top: 10px;
+  }
+
+  &:last-child {
+    padding-bottom: 10px;
   }
 
   &:nth-of-type(2) {

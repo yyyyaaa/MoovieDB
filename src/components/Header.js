@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/logo.svg';
-import SearchBox from './SearchBox';
+import SearchBox from '../containers/SearchPage/SearchBox';
 
 class Header extends Component {
   render() {

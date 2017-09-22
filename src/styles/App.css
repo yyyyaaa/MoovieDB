@@ -7,6 +7,7 @@
   padding: 5px 10px;
   appearance: none;
   background-color: #363636;
+  color: #fff;
   box-shadow: 1px 1px 1px 1px #363636;
   border: none;
   font-size: 18px; }
@@ -26,14 +27,21 @@
   background-color: #363636;
   width: 100%;
   transform: translateY(0);
-  padding: 5px 10px;
   box-shadow: 1px 1px 1px 1px #363636; }
 
 .suggestion-item {
   color: #fff;
-  padding: 5px 0; }
-  .suggestion-item.is-active {
-    background-color: #00FC87; }
+  cursor: pointer;
+  padding: 0 10px;
+  transition: all 0.3s ease-in-out; }
+  .suggestion-item small {
+    color: #00FC87; }
+  .suggestion-item.is-active, .suggestion-item:hover {
+    background-color: #545454; }
+  .suggestion-item:first-child {
+    padding-top: 10px; }
+  .suggestion-item:last-child {
+    padding-bottom: 10px; }
   .suggestion-item:nth-of-type(2) {
     border-top: 1px solid #686868;
     border-bottom: 1px solid #686868; }
