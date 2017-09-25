@@ -1,8 +1,9 @@
+import { has } from 'lodash';
 import MovieService from '../../services/movie';
 
 const initialState = {
   searchResults: [],
-  movies: {},
+  cache: {},
   currentMovie: {},
   error: {},
 };
@@ -59,6 +60,13 @@ export const searchMovie = (query) => async (dispatch, getState) => {
 export const fetchMovie = (id) => async (dispatch, getState) => {
   const currentState = getState();
   dispatch(requestFetchMovie());
+
+  // Alreay in cache
+  if(has(currentState.movie.cache, String(id))) {
+    dispatch(abortFetchMovie());
+    return;
+  }
+  
   const fetchedMovie = await MovieService.fetchMovieById(id);
   if(fetchedMovie.status !== 200 && !currentState.movie.currentMovie) {
     dispatch(failFetchMovie({ 
@@ -97,6 +105,10 @@ export default function reducer(state=initialState, action={}){
     case FETCH_MOVIE_SUCCESS:
       return {
         ...state,
+        cache: {
+          ...state.cache,
+          [action.movie.data.id]: action.movie,
+        },
         currentMovie: action.movie,
       }
     case FETCH_MOVIE_REQUEST:
