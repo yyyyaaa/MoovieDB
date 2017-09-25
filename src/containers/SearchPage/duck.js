@@ -1,9 +1,10 @@
 import MovieService from '../../services/movie';
-import { API_KEY, BASE_API_URL } from '../../constants';
 
 const initialState = {
   searchResults: [],
-  movies: {}
+  movies: {},
+  currentMovie: {},
+  error: {},
 };
 
 // Action types
@@ -12,42 +13,60 @@ const FETCH_MOVIE_REQUEST = 'FETCH_MOVIE_REQUEST';
 const FETCH_MOVIE_FAILURE = 'FETCH_MOVIE_FAILURE';
 const FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS';
 
+const SEARCH_MOVIE_CLEAR = 'SEARCH_MOVIE_CLEAR';
 const SEARCH_MOVIE_REQUEST = 'SEARCH_MOVIE_REQUEST';
 const SEARCH_MOVIE_SUCCESS = 'SEARCH_MOVIE_SUCCESS';
 
 // Action creators - SYNCHRONOUS
-const abortFetchMovie = () => ({
+export const abortFetchMovie = () => ({
   type: FETCH_MOVIE_ABORT,
 });
 
-const failFetchMovie = (error) => ({
+export const failFetchMovie = (error) => ({
   type: FETCH_MOVIE_FAILURE,
   error
 });
 
-const requestFetchMovie = () => ({
+export const requestFetchMovie = () => ({
   type: FETCH_MOVIE_REQUEST,
 });
 
-const succeedFetchMovie = (movie) => ({
+export const succeedFetchMovie = (movie) => ({
   type: FETCH_MOVIE_SUCCESS,
   movie
 }); 
 
-const requestSearchMovie = () => ({
+export const clearSearchMovie = () => ({
+  type: SEARCH_MOVIE_CLEAR,
+});
+
+export const requestSearchMovie = () => ({
   type: SEARCH_MOVIE_REQUEST,
 });
 
-const succeedSearchMovie = (searchResults) => ({
+export const succeedSearchMovie = (searchResults) => ({
   type: SEARCH_MOVIE_SUCCESS,
   searchResults,
 });
 
-// Action creators - ASYNC
+// Thunk - ASYNC
 export const searchMovie = (query) => async (dispatch, getState) => {
   dispatch(requestSearchMovie());
   const searchResults = await MovieService.fetchSearchResults(query);
   dispatch(succeedSearchMovie(searchResults));
+}
+
+export const fetchMovie = (id) => async (dispatch, getState) => {
+  const currentState = getState();
+  dispatch(requestFetchMovie());
+  const fetchedMovie = await MovieService.fetchMovieById(id);
+  if(fetchedMovie.status !== 200 && !currentState.movie.currentMovie) {
+    dispatch(failFetchMovie({ 
+      status: fetchedMovie.status,
+      statusText: fetchedMovie.statusText,
+    }));
+  }
+  dispatch(succeedFetchMovie(fetchedMovie));
 }
 
 // Reducer 
@@ -62,6 +81,26 @@ export default function reducer(state=initialState, action={}){
         ...state,
         searchResults: action.searchResults
       };
+    case SEARCH_MOVIE_CLEAR:
+      return {
+        ...state,
+        searchResults: []
+      };
+    case FETCH_MOVIE_FAILURE:
+      return {
+        ...state,
+        error: {
+          status: action.error.status,
+          message: action.error.statusText,
+        }
+      };
+    case FETCH_MOVIE_SUCCESS:
+      return {
+        ...state,
+        currentMovie: action.movie,
+      }
+    case FETCH_MOVIE_REQUEST:
+    case FETCH_MOVIE_ABORT:
     default:
       return state;
   }

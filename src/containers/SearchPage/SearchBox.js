@@ -22,13 +22,19 @@ class SearchBox extends Component {
 
   handleChange = (event) => {
     this.setState({ query: event.target.value });
+    if(!event.target.value) {
+      this.toggleSuggestion(false);
+      this.props.clearSearch();
+    }
     this.handleSearch();
   }
 
   handleSearch = () => {
     const { query } = this.state;
-    this.props.dispatch(movieActions.searchMovie(query));
-    this.toggleSuggestion(true);
+    if(query) {
+      this.props.searchMovie(query);
+      this.toggleSuggestion(true);
+    }
   }
 
   toggleSuggestion = (value) => {
@@ -37,10 +43,7 @@ class SearchBox extends Component {
 
   render() {
     return (
-      <form className="searchbox" 
-        onBlur={() => this.toggleSuggestion(false)}
-        onFocus={() => this.toggleSuggestion(true)}
-      >
+      <form className="searchbox" onFocus={() => this.toggleSuggestion(true)}>
         <input 
           type="text" 
           role="search" 
@@ -52,7 +55,11 @@ class SearchBox extends Component {
         </span>
         { this.props.searchMovies && 
           this.state.showSuggestion && 
-          <SuggestionList movies={this.props.searchMovies}/>
+          <SuggestionList 
+            movies={this.props.searchMovies} 
+            fetchMovie={this.props.fetchMovie}
+            hideSuggestions={() => this.toggleSuggestion(false)}
+          />
         }
       </form>
     );
@@ -65,4 +72,18 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(SearchBox);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchMovie: (id) => {
+      dispatch(movieActions.fetchMovie(id));
+    },
+    searchMovie: (query) => {
+      dispatch(movieActions.searchMovie(query));
+    },
+    clearSearch: () => {
+      dispatch(movieActions.clearSearchMovie());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

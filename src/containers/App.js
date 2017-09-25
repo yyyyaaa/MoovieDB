@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../configureStore';
-import MovieService from '../services/movie';
 import SearchPage from './SearchPage';
 import '../styles/App.css';
 
 class App extends Component {
-  componentDidMount() {
-    MovieService.fetchMovieById(293660)
-      .then(response => {
-        console.log(response);
-      });
-  }
-
   render() {
     return (
       <Provider store={store}>

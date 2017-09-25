@@ -14,12 +14,6 @@ class Header extends Component {
                 <Link to="/" className="navbar-item">
                   <img src={Logo} alt="MovieDB" width="150" height="150" />
                 </Link>
-            
-                <button className="button navbar-burger">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
               </div>
             </div>
 

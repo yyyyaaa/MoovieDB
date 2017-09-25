@@ -24,7 +24,11 @@ class MovieService {
   fetchMovieById = async (id) => {
     const endpoint = `${this.BASE_API_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`;
     const movieResult = await this.callApi(endpoint);
-    return movieResult;
+    if(movieResult.status !== 200) {
+      return _.pick(movieResult, ['data', 'status', 'statusText']);
+    } else {
+      return _.pick(movieResult, ['data']);
+    }
   }
 
   fetchSearchResults = async (query) => {

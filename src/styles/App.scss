@@ -12,6 +12,15 @@ $green: #00FC87;
   @return mix(black, $color, $percentage);
 }
 
+body {
+  height: 100vh;
+}
+
+// Navbar
+.navbar.is-dark {
+  background-color: rgba(54, 54, 54, 0.5);
+}
+
 // Searchbox
 .searchbox {
   width: 500px;
@@ -22,11 +31,17 @@ $green: #00FC87;
   width: 100%;
   padding: 5px 10px;
   appearance: none;
+  outline: none;
   background-color: $dark;
+  border-radius: 4px;
   color: $white;
   box-shadow: 1px 1px 1px 1px $dark;
   border: none;
   font-size: 18px;
+
+  &:focus {
+    border: 1px solid $green;
+  }
 }
 
 .searchbox-magnifier {
@@ -48,6 +63,10 @@ $green: #00FC87;
   width: 100%;
   transform: translateY(0);
   box-shadow: 1px 1px 1px 1px $dark;
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 4;
 }
 
 .suggestion-item {
@@ -76,5 +95,42 @@ $green: #00FC87;
   &:nth-of-type(even) {
     border-top: 1px solid tint($dark, 25%);
     border-bottom: 1px solid tint($dark, 25%);
+  }
+}
+
+// Card
+.card {
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+}
+
+.card-poster,
+.card-meta-data {
+  padding: 0;
+}
+
+.card-poster img {
+  height: 100%;
+}
+
+.card-poster {
+  border-radius: 3px 0 0 3px;
+}
+
+.card-meta-data {
+  border-radius: 0 3px 3px 0;
+  color: $white;
+  
+  .tagline,
+  .meta-data {
+    color: $green;
+    font-size: 1.3em;
+  }
+
+  h1 {
+    text-transform: uppercase;
+    color: $white;
+    font-weight: bold;
   }
 }
