@@ -42,6 +42,6 @@
     padding-top: 10px; }
   .suggestion-item:last-child {
     padding-bottom: 10px; }
-  .suggestion-item:nth-of-type(2) {
+  .suggestion-item:nth-of-type(even) {
     border-top: 1px solid #686868;
     border-bottom: 1px solid #686868; }

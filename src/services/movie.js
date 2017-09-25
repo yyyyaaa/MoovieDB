@@ -35,19 +35,18 @@ class MovieService {
       return {
         id: movie.id,
         title: movie.original_title,
-        overview: this.truncateText(movie.overview, 100),
+        overview: truncateText(movie.overview, 100),
       }
     })
   }
-  
-  truncateText = (text, length) => {
-    if(text.length > length) {
-      return text.substring(0, length) + '...';
-    } else {
-      return text;
-    }
-  }
+}
 
+function truncateText(text, length) {
+  if(text.length > length) {
+    return text.substring(0, length) + '...';
+  } else {
+    return text;
+  }
 }
 
 export default new MovieService();

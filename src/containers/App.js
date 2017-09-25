@@ -7,12 +7,13 @@ import SearchPage from './SearchPage';
 import '../styles/App.css';
 
 class App extends Component {
-  // componentDidMount() {
-  //   MovieService.fetchSearchResults("deadpool")
-  //     .then(response => {
-  //       console.log(response);
-  //     });
-  // }
+  componentDidMount() {
+    MovieService.fetchMovieById(293660)
+      .then(response => {
+        console.log(response);
+      });
+  }
+
   render() {
     return (
       <Provider store={store}>
