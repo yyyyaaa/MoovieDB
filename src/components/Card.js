@@ -15,11 +15,9 @@ class Card extends Component {
     let data = this.props.data,
         posterIMG = 'https://image.tmdb.org/t/p/w500' + data.poster_path,
         production = data.production_companies,
-        productionCountries = data.production_countries,
         genres = data.genres,
         totalRevenue = data.revenue,
         productionList = nestedDataToString(production),
-        productionCountriesList = nestedDataToString(productionCountries),
         noData = '-',
         genresList = nestedDataToString(genres);
         backdropIMG = 'https://image.tmdb.org/t/p/original' + data.backdrop_path;
