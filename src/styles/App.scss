@@ -12,8 +12,9 @@ $green: #00FC87;
   @return mix(black, $color, $percentage);
 }
 
+html,
 body {
-  height: 100vh;
+  height: 100%;
 }
 
 // Navbar

@@ -1,5 +1,6 @@
+html,
 body {
-  height: 100vh; }
+  height: 100%; }
 
 .navbar.is-dark {
   background-color: rgba(54, 54, 54, 0.5); }
