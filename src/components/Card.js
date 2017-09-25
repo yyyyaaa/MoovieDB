@@ -74,7 +74,7 @@ class Card extends Component {
 }
 
 function setBackdrop() {
-  document.body.style.backgroundImage = 'url(' + backdropIMG + ')';
+  document.getElementById("root").style.backgroundImage = 'url(' + backdropIMG + ')';
 }
 
 function nestedDataToString(nestedData) {

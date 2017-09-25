@@ -12,11 +12,6 @@ $green: #00FC87;
   @return mix(black, $color, $percentage);
 }
 
-html,
-body {
-  height: 100%;
-}
-
 // Navbar
 .navbar.is-dark {
   background-color: rgba(54, 54, 54, 0.5);
